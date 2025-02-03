@@ -30,14 +30,12 @@ export const NewMovie: React.FC<Prop> = ({ onAdd }) => {
   const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     onAdd(data);
+    data.title = '';
+    data.description = '';
+    data.imgUrl = '';
+    data.imdbUrl = '';
+    data.imdbId = '';
     setCount(prev => prev + 1);
-    setData({
-      title: '',
-      description: '',
-      imgUrl: '',
-      imdbUrl: '',
-      imdbId: '',
-    });
   };
 
   return (
@@ -64,7 +62,6 @@ export const NewMovie: React.FC<Prop> = ({ onAdd }) => {
         label="Image URL"
         value={data.imgUrl}
         onChange={value => handleChange('imgUrl', value)}
-        required
       />
 
       <TextField
@@ -72,7 +69,6 @@ export const NewMovie: React.FC<Prop> = ({ onAdd }) => {
         label="Imdb URL"
         value={data.imdbUrl}
         onChange={value => handleChange('imdbUrl', value)}
-        required
       />
 
       <TextField
@@ -80,7 +76,6 @@ export const NewMovie: React.FC<Prop> = ({ onAdd }) => {
         label="Imdb ID"
         value={data.imdbId}
         onChange={value => handleChange('imdbId', value)}
-        required
       />
 
       <div className="field is-grouped">

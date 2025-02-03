@@ -23,32 +23,26 @@ export const NewMovie: React.FC<Prop> = ({ onAdd }) => {
     imdbId: '',
   });
 
-  const handleChange = (name: string, value: string) => {
-    setData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onAdd(data);
+    data.title = '';
+    data.description = '';
+    data.imgUrl = '';
+    data.imdbUrl = '';
+    data.imdbId = '';
     setCount(prev => prev + 1);
-    setData({
-      title: '',
-      description: '',
-      imgUrl: '',
-      imdbUrl: '',
-      imdbId: '',
-    });
   };
 
   return (
-    <form className="NewMovie" key={count}>
+    <form className="NewMovie" key={count} onSubmit={handleSubmit}>
       <h2 className="title">Add a movie</h2>
 
       <TextField
         name="title"
         label="Title"
         value={data.title}
-        onChange={value => handleChange('title', value)}
+        onChange={value => setData(prev => ({ ...prev, title: value }))}
         required
       />
 
@@ -56,31 +50,28 @@ export const NewMovie: React.FC<Prop> = ({ onAdd }) => {
         name="description"
         label="Description"
         value={data.description}
-        onChange={value => handleChange('description', value)}
+        onChange={value => setData(prev => ({ ...prev, description: value }))}
       />
 
       <TextField
         name="imgUrl"
         label="Image URL"
         value={data.imgUrl}
-        onChange={value => handleChange('imgUrl', value)}
-        required
+        onChange={value => setData(prev => ({ ...prev, imgUrl: value }))}
       />
 
       <TextField
         name="imdbUrl"
         label="Imdb URL"
         value={data.imdbUrl}
-        onChange={value => handleChange('imdbUrl', value)}
-        required
+        onChange={value => setData(prev => ({ ...prev, imdbUrl: value }))}
       />
 
       <TextField
         name="imdbId"
         label="Imdb ID"
         value={data.imdbId}
-        onChange={value => handleChange('imdbId', value)}
-        required
+        onChange={value => setData(prev => ({ ...prev, imdbId: value }))}
       />
 
       <div className="field is-grouped">
@@ -89,7 +80,6 @@ export const NewMovie: React.FC<Prop> = ({ onAdd }) => {
             type="submit"
             data-cy="submit-button"
             className="button is-link"
-            onClick={handleSubmit}
             disabled={
               !data.title || !data.imgUrl || !data.imdbUrl || !data.imdbId
             }

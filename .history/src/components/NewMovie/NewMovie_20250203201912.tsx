@@ -30,14 +30,12 @@ export const NewMovie: React.FC<Prop> = ({ onAdd }) => {
   const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     onAdd(data);
+    data.title = '';
+    data.description = '';
+    data.imgUrl = '';
+    data.imdbUrl = '';
+    data.imdbId = '';
     setCount(prev => prev + 1);
-    setData({
-      title: '',
-      description: '',
-      imgUrl: '',
-      imdbUrl: '',
-      imdbId: '',
-    });
   };
 
   return (
@@ -56,31 +54,28 @@ export const NewMovie: React.FC<Prop> = ({ onAdd }) => {
         name="description"
         label="Description"
         value={data.description}
-        onChange={value => handleChange('description', value)}
+        onChange={value => setData(prev => ({ ...prev, description: value }))}
       />
 
       <TextField
         name="imgUrl"
         label="Image URL"
         value={data.imgUrl}
-        onChange={value => handleChange('imgUrl', value)}
-        required
+        onChange={value => setData(prev => ({ ...prev, imgUrl: value }))}
       />
 
       <TextField
         name="imdbUrl"
         label="Imdb URL"
         value={data.imdbUrl}
-        onChange={value => handleChange('imdbUrl', value)}
-        required
+        onChange={value => setData(prev => ({ ...prev, imdbUrl: value }))}
       />
 
       <TextField
         name="imdbId"
         label="Imdb ID"
         value={data.imdbId}
-        onChange={value => handleChange('imdbId', value)}
-        required
+        onChange={value => setData(prev => ({ ...prev, imdbId: value }))}
       />
 
       <div className="field is-grouped">
